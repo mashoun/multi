@@ -20,7 +20,7 @@ function main() {
 
 // GETTING DATA
 var ss = SpreadsheetApp.getActiveSpreadsheet()
-var FolderID = '1PIOs1FAyZQvMwp5ct9_ePiSEhZecFiVA'
+var FolderID = '1PME1DQJKdqTrCIe4a4wwmiBZfJCmBj7M'
 var companyName = 'ICD'
 
 function getProfile() {
@@ -30,7 +30,7 @@ function getProfile() {
         logo: ss.getSheetByName('Home').getRange('B2').getValue(),
         heading: ss.getSheetByName('Home').getRange('B3').getValue(),
         bio: ss.getSheetByName('Home').getRange('B4').getValue(),
-        wallpaper: ss.getSheetByName('Home').getRange('B5').getValue(),
+        video: ss.getSheetByName('Home').getRange('B5').getValue(),
         getStarted: ss.getSheetByName('Home').getRange('B6').getValue(),
 
         // Contact
@@ -73,6 +73,7 @@ function getProfile() {
         services: obtain('Services', ['title', 'url', 'description']),
         media: getMedia(),
         team: obtain('Team', ['name', 'jobTitle', 'url']),
+        tabs: getMediaTabs()
     }
     Logger.log(profile)
     return profile
@@ -82,12 +83,17 @@ function getProfile() {
 // Keys must have an order
 function obtain(sheetName, keys) {
     var sheet = ss.getSheetByName(sheetName)
+
     var lr = sheet.getLastRow()
     var arr = []
     for (let i = 2; i <= lr; i++) {
         var obj = {}
+        obj['index'] = (i - 1).toString();
         for (j = 0; j < keys.length; j++) {
             obj[keys[j]] = sheet.getRange(i, j + 1).getValue()
+            if (sheetName.includes('MEDIA / ')) {
+                obj['id'] = `${sheetName.slice(8, sheetName.length)}-${i - 1}`
+            } else obj['id'] = `${sheetName}-${i - 1}`
         }
         arr.push(obj)
     }
@@ -126,21 +132,32 @@ function getCell() {
 }
 
 function getMedia() {
-    var media = []
+    var media = {}
+    ss.getSheets().forEach(s => {
+        if (s.getName().includes('MEDIA / ')) {
+            var name = s.getName().slice(8, s.getName().length)
+            media[name] = obtain(s.getName(), ['title', 'url', 'description'])
+
+        }
+    })
+    Logger.log(media)
+    return media
+}
+
+
+function getMediaTabs() {
+    // var media = []
     var mediaTabs = []
     ss.getSheets().forEach(s => {
         if (s.getName().includes('MEDIA / ')) {
             var name = s.getName().slice(8, s.getName().length)
-            var obj = {}
-            obj[name] = obtain(s.getName(), ['title', 'url', 'description'])
-            media.push(obj)
             mediaTabs.push(name)
         }
     })
-    media.push({ tabs: mediaTabs })
     // Logger.log(media)
-    // Logger.log(mediaTabs)
-    return media
+    Logger.log(mediaTabs)
+    return mediaTabs
+
 }
 
 // UI
@@ -190,7 +207,7 @@ function NewDatabaseSheets() {
     spreadsheet.getRange('A4').activate();
     spreadsheet.getCurrentCell().setValue('Bio');
     spreadsheet.getRange('A5').activate();
-    spreadsheet.getCurrentCell().setValue('Wallpaper');
+    spreadsheet.getCurrentCell().setValue('Video URL');
     spreadsheet.getRange('A6').activate();
     spreadsheet.getCurrentCell().setValue('Get Started ( URL )');
     spreadsheet.getRange('A7').activate();
@@ -229,8 +246,8 @@ function NewDatabaseSheets() {
     spreadsheet.getCurrentCell().setValue('Privacy Policy');
     spreadsheet.getRange('A24').activate();
     spreadsheet.getCurrentCell().setValue('Contact Link');
-    spreadsheet.getRange('A25').activate();
-    spreadsheet.getCurrentCell().setValue('FOLDER ID').setFontColor('red');
+    // spreadsheet.getRange('A25').activate();
+    // spreadsheet.getCurrentCell().setValue('FOLDER ID').setFontColor('red');
     spreadsheet.getRange('C:C').activate();
     var currentCell = spreadsheet.getCurrentCell();
     spreadsheet.getSelection().getNextDataRange(SpreadsheetApp.Direction.NEXT).activate();

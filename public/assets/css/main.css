@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
 :root {
     --blue: #0d6efd;
     --my-light: #edf2fb;
 
+}
+
+.com {
+    font-family: 'Comfortaa', cursive !important;
+    letter-spacing: 1px !important;
 }
 
 ul {
@@ -32,27 +39,26 @@ header {
     background-color: whitesmoke;
 }
 
-.hero-box {
-    width: 100%;
-    height: 100vh;
-    /* height: calc(100vh - 72px) !important; */
-    background-color: rgb(0, 0, 0, 0.4);
-    background-image: url('../img/wall1.avif');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-}
-
-.spot {
-    filter: drop-shadow(1px 1px 4px #444);
+.spot-b {
+    filter: drop-shadow(1px 1px 15px #444);
     color: white !important;
-    text-align: center !important;
 }
 
+.fw-5 {
+    font-size: 3vw;
+}
+
+.spot-w {
+
+    filter: drop-shadow(1px 1px 20px white);
+    color: #444 !important;
+    /* text-align: center !important; */
+}
+
+.ls-2 {
+    letter-spacing: 2px !important;
+}
 
 .counter-box {
     width: 300px;
@@ -60,6 +66,12 @@ header {
     position: absolute;
     top: 500px;
     background-color: aliceblue;
+}
+
+.grad {
+    color: #444;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+
 }
 
 /* width */
@@ -316,7 +328,7 @@ section {
     width: 65% !important;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .menu {
         display: block;
     }
@@ -354,6 +366,20 @@ section {
     .faq {
         width: 100% !important;
     }
+
+    .hero-box {
+        text-align: center !important;
+        /* background-color: grey; */
+        top: 250px !important;
+    }
+
+    .hero-box>h1 {
+        width: 100% !important;
+    }
+}
+
+.hero-box {
+    top: 50%;
 }
 
 .scale-in-center {
@@ -860,57 +886,207 @@ section {
 }
 
 
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    overflow: hidden;
-    background: #fff;
-}
 
-#preloader:before {
-    content: "";
-    position: fixed;
-    top: calc(50% - 30px);
-    left: calc(50% - 30px);
-    border: 6px solid var(--blue);
-    border-top-color: white;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    -webkit-animation: animate-preloader 1s linear infinite;
-    animation: animate-preloader 1s linear infinite;
-}
-
-@-webkit-keyframes animate-preloader {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes animate-preloader {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-
-.lebancode{
+.lebancode {
     letter-spacing: 1.5px;
     font-size: .8rem;
     color: var(--secondary);
+}
+
+.spinner {
+    position: fixed;
+    z-index: 99999999;
+    top: 0;
+    background-color: white;
+    /* border: 2px dashed; */
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #444;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(24px, 0);
+    }
+}
+
+
+/*--------------------------------------------------------------
+# Why Us
+--------------------------------------------------------------*/
+.why-us {
+    padding: 0 0 30px 0;
+    position: relative;
+    z-index: 3;
+}
+
+.why-us .content {
+    padding: 30px;
+    background: var(--blue);
+    /* background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); */
+
+    border-radius: .5rem;
+    color: #fff;
+}
+
+.why-us .content h3 {
+    font-weight: 700;
+    font-size: 34px;
+    margin-bottom: 30px;
+}
+
+.why-us .content p {
+    margin-bottom: 30px;
+}
+
+.why-us .content .more-btn {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 30px 8px 30px;
+    color: #fff;
+    border-radius: 50px;
+    transition: all ease-in-out 0.4s;
+}
+
+.why-us .content .more-btn i {
+    font-size: 14px;
+}
+
+.why-us .content .more-btn:hover {
+    color: var(--red);
+    background: #fff;
+}
+
+.icon-box {
+    width: 300px !important;
+    text-align: center;
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px 20px;
+    width: 100%;
+}
+
+.icon-box i {
+    font-size: 40px;
+    color: var(--red);
+    margin-bottom: 30px;
+}
+
+.icon-box h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 30px 0;
+}
+
+.icon-box p {
+    font-size: 15px;
+    color: #716f6f;
+}
+
+.fade-in-bottom {
+    -webkit-animation: fade-in-bottom 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3s both;
+    animation: fade-in-bottom 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3s both;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2022-7-25 14:2:29
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation fade-in-bottom
+ * ----------------------------------------
+ */
+@-webkit-keyframes fade-in-bottom {
+    0% {
+        -webkit-transform: translateY(50px);
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in-bottom {
+    0% {
+        -webkit-transform: translateY(50px);
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

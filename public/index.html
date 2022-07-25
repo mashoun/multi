@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEMPLATE1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0">
+    <title>Company Name</title>
     <link rel="stylesheet" href="assets/css/main.css">
 
     <!-- BOOTSTRAP + ICONS  -->
@@ -16,6 +16,10 @@
     <!-- SWIPER CSS  -->
     <link rel="stylesheet" href="assets/swiper/swiper-bundle.min.css">
 
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
     <!-- VUE JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 
@@ -25,12 +29,24 @@
 </head>
 
 <body id="app">
-    <header class="d-flex justify-content-between align-items-center shadow">
+    
+    <!-- spinner -->
+    <div v-if="spinner" class="d-flex flex-column justify-content-center align-items-center spinner w-100 h-100">
+        <img src="https://picsum.photos/70" alt="logo" class="img-fluid rounded-circle shadow-sm">
+        <h6 class="text-secondary mt-3">{{company}}</h6>
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <header class="d-flex justify-content-between align-items-center shadow com">
         <!-- BRAND SECTION -->
         <section class="d-flex p-2 align-items-center">
             <a href="#"><img class="rounded m-2" src="https://picsum.photos/40" alt="BRAND NAME"></a>
             <a href="#">
-                <h1 class="fs-4 m-2">{{company}}</h1>
+                <h1 class="fs-5 m-2">{{company}}</h1>
             </a>
         </section>
 
@@ -43,73 +59,105 @@
             <a class="mx-3" href="#team">Team</a>
             <a class="mx-3" href="#faq">FAQ</a>
 
-            <a class="mx-3 btn btn-outline-primary" href="#contact">Contact</a>
+            <a class="mx-3 btn btn-primary" href="#contact">Contact</a>
         </nav>
         <i class="bi bi-grid-fill m-3 fs-1 menu point text-secondary" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions"></i>
         <!-- <i class="bi bi-three-dots-vertical m-3 fs-1 menu point text-secondary" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasWithBothOptions"></i> -->
 
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+        <div class="offcanvas w-75 offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
             aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
+
             <div class="offcanvas-body">
-                <p>Try scrolling the rest of the page to see this option in action.</p>
+
+                <center>
+                    <a href="#"><img class="rounded-circle m-2 shadow-sm" src="https://picsum.photos/70" alt="BRAND NAME"></a>
+                    <h4 class="text-primary my-3">{{company}}</h4>
+
+                    <!-- <h6 class="my-1">{{profile.bio}}</h6> -->
+
+                    <div class="d-flex justify-content-evenly mt-4 fs-4">
+                        <a href="#" class="twitter"><i class="bi bi-twitter text-secondary"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook text-secondary"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram text-secondary"></i></a>
+                        <a href="#" class="google-plus"><i class="bi bi-skype text-secondary"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin text-secondary"></i></a>
+                    </div>
+                    <hr class="w-75">
+
+                    <!-- TAGS -->
+                    <section class="d-flex justify-content-evenly align-items-center flex-wrap">
+
+                        <div class="mb-1 p-2 w-50 mx-auto  rounded-pill" data-bs-dismiss="offcanvas"><a
+                                href="#home">Home</a></div>
+                        <div class="my-1 p-2 w-50 mx-auto  rounded-pill" data-bs-dismiss="offcanvas"><a
+                                href="#about">About</a></div>
+                        <div class="my-1 p-2 w-50 mx-auto  rounded-pill" data-bs-dismiss="offcanvas"><a
+                                href="#services">Service</a></div>
+                        <div class="my-1 p-2 w-50 mx-auto  rounded-pill" data-bs-dismiss="offcanvas"><a
+                                href="#media">Media</a></div>
+                        <div class="my-1 p-2 w-50 mx-auto rounded-pill" data-bs-dismiss="offcanvas"><a
+                                href="#team">Team</a></div>
+                        <div class="my-1 p-2 w-50 mx-auto  rounded-pill" data-bs-dismiss="offcanvas"><a
+                                href="#faq">FAQ</a></div>
+                        <div class="p-2 w-75 btn btn-outline-primary mx-auto" data-bs-dismiss="offcanvas"><a
+                                href="#contact">Contact</a></div>
+
+                    </section>
+
+                    <i class="bi bi-arrow-return-right fs-2 text-secondary" data-bs-dismiss="offcanvas"></i>
+
+
+                </center>
             </div>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section class="hero-box" id="home">
-        <div class="d-flex flex-column justify-content-around p-2 align-items-center container">
-            <h1 class="spot">Lorem ipsum dolor sit amet.</h1>
-            <p class="spot fs-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet quod quidem, ipsa
-                ratione nostrum nemo excepturi harum earum. Quia illo ab exercitationem sed beatae non perspiciatis,
-                quidem deserunt alias adipisci!</p>
-            <a href="#about" class="btn btn-primary px-5">Get Started</a>
+    <section class="position-relative" id="home" style="top:40px;">
+        <picture class="">
+            <source media="(max-width:600px)" srcset="assets/img/2000x4000.webp" class="img-fluid">
+            <source media="(max-width:1000px)" srcset="assets/img/4000x3000.webp" class="img-fluid">
+            <img src="assets/img/8000px.webp" class="img-fluid w-100" style="filter: contrast(85%);">
+        </picture>
+        <div class="hero-box position-absolute container start-50 translate-middle ">
+            <h1 class="text-light com spot-b fs-2">{{profile.heading}}</h1>
+            <h1 class="text-light mt-4 lh-base com w-75 spot-b fs-6"> {{profile.bio}} </h1>
+            <a href="#about" class="btn btn-outline-light mt-2 px-4 ls-2 com py-2 rounded">Get Started</a>
         </div>
+
     </section>
+
+
     <main class="">
 
         <!-- ======= ABOUT Section ======= -->
-        <section id="about" class="about">
-            <div class="container" data-aos="fade-up">
+        <section id="about" class="about" data-aos="fade-up" data-aos-duration="1000">
+            <div class="container">
 
-                <div class="section-title">
-                    <h2 class="">About Us</h2>
+                <div class="section-title container">
+                    <h2 class="mb-5">About Us</h2>
                     <p class="text-center fs-3">Lorem ipsum dolor sit amet.</p>
                 </div>
 
                 <div class="row content">
                     <div class="col-lg-6">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et
-                            dolore
-                            magna aliqua.
-                        </p>
-                        <ul>
-                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat
-                            </li>
-                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat
-                            </li>
-                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat
-                            </li>
-                        </ul>
+                        <p> {{profile.about1}} </p>
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0">
-                        <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in
-                            voluptate
-                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <a href="#" class="btn btn-outline-primary px-5 learn-more">Learn More</a>
+                        <!-- <p></p> -->
+                        <ul>
+                            <li><i class="bi bi-check2-all"></i>{{profile.about2}}
+                            </li>
+                            <li><i class="bi bi-check2-all"></i>{{profile.mission}}
+                            </li>
+                            <li><i class="bi bi-check2-all"></i>{{profile.vision}}
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary px-3 my-2 learn-more">Learn more</a>
+                        <a href="#" class="btn btn-outline-secondary px-3 ms-md-3 learn-more"><i
+                                class="bi bi-play-circle me-1"></i> Watch a video</a>
                     </div>
                 </div>
 
@@ -122,40 +170,42 @@
 
                     <div class="row d-flex justify-content-around">
 
-                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0" data-aos="fade-up" data-aos-duration="1000"
+                            data-aos-delay="50">
                             <div class="count-box shadow-sm">
                                 <i class="bi bi-hourglass"></i>
                                 <div class="purecounter-pot">
-                                    <span data-purecounter-start="0" data-purecounter-end="1967"
-                                        data-purecounter-duration="1" class="purecounter"></span>
+                                    <span data-purecounter-start="0" :data-purecounter-end="profile.counter1"
+                                        data-purecounter-duration="7" class="purecounter"></span>
                                     <!-- <span> K +</span> -->
                                 </div>
                                 <p>Operating since</p>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0" data-aos="fade-up" data-aos-duration="1000"
+                            data-aos-delay="500">
                             <div class="count-box shadow-sm">
                                 <i class="bi bi-globe2"></i>
                                 <div class="purecounter-pot">
-                                    <span data-purecounter-start="0" data-purecounter-end="30"
-                                        data-purecounter-duration="1" class="purecounter"></span>
+                                    <span data-purecounter-start="0" :data-purecounter-end="profile.counter2"
+                                        data-purecounter-duration="7" class="purecounter"></span>
                                     <span>+</span>
                                 </div>
                                 <p>Countries</p>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0" data-aos="fade-up" data-aos-duration="1000"
+                            data-aos-delay="800">
                             <div class="count-box shadow-sm">
                                 <i class="bi bi-boxes"></i>
                                 <div class="purecounter-pot">
-                                    <span data-purecounter-start="0" data-purecounter-end="700"
-                                        data-purecounter-duration="1" class="purecounter"></span>
+                                    <span data-purecounter-start="0" :data-purecounter-end="profile.counter3"
+                                        data-purecounter-duration="7" class="purecounter"></span>
                                     <span> K +</span>
                                 </div>
                                 <p>Boxes per year</p>
                             </div>
                         </div>
-
 
 
                     </div>
@@ -167,18 +217,12 @@
         <!-- ======= SERVICES Section ======= -->
         <section id="services">
             <div class="section-title container">
-                <h2>Our Services</h2>
+                <h2 class="mb-5">Our Services</h2>
                 <p class="text-center fs-3">Lorem ipsum dolor sit amet</p>
             </div>
             <div class="services-box container d-flex justify-content-around align-items-center flex-wrap">
-                <card width="400" url="https://picsum.photos/3840/2160" imgAlt="Image" title="Service 1"
-                    info="1Lorem ipsum dolor sit amet" id="S1">
-                </card>
-                <card width="400" url="https://picsum.photos/3840/2160" imgAlt="Image" title="Service 2"
-                    info="2Lorem ipsum dolor sit amet" id="S21">
-                </card>
-                <card width="400" url="https://picsum.photos/3840/2160" imgAlt="Image" title="Service 3"
-                    info="3Lorem ipsum dolor sit amet" id="S31">
+                <card v-for="s in profile.services" width="400" :url="s.url" :imgAlt="s.title" :title="s.title"
+                    :info="s.description" :id="s.id">
                 </card>
 
             </div>
@@ -187,22 +231,60 @@
 
 
         <!-- ======= Clients Section ======= -->
-
-        <section class="container">
+        <section id="clients" class="container">
 
             <div class="section-title container">
                 <h2 class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, sequi?</h2>
                 <p class="text-center fs-3">Our Partners and Clients</p>
             </div>
-            <swiper w="100%" h="auto"
-                :list="['https://picsum.photos/300','https://picsum.photos/300','https://picsum.photos/300','https://picsum.photos/300','https://picsum.photos/300','https://picsum.photos/300','https://picsum.photos/300','https://picsum.photos/300']">
+            <swiper w="100%" h="auto" :list="profile.clients">
             </swiper>
+        </section>
+
+        <hr>
+        <!-- ======= WHY choose us Section ======= -->
+        <section class="container">
+
+            <div class="section-title container">
+                <!-- <h2 class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2> -->
+                <p class="text-center fs-3">Why Choose Us ?</p>
+                <h6 class="com mt-5 text-secondary text-center lh-base">Known by our customers for our work ethic,
+                    professionalism and innovative approach, we strive to
+                    achieve excellence. By emphasizing our product quality and employing fast, efficient service, we are
+                    able to give you the best product possible at an affordable price.
+                </h6>
+
+            </div>
+            <div class="d-flex justify-content-evenly align-items-center flex-wrap">
+                <div class="d-flex align-items-center flex-column px-3 py-5 my-3 shadow-sm rounded" data-aos="fade-up"
+                    data-aos-duration="1000" data-aos-delay="150">
+                    <i class="bi bi-award fs-1 text-danger"></i>
+                    <h5 class="my-3">Professionalism</h5>
+                    <p class="text-secondary">A guiding principle in all our work</p>
+                </div>
+                <div class="d-flex align-items-center flex-column px-3 py-5  my-3 shadow-sm rounded" data-aos="fade-up"
+                    data-aos-duration="1000" data-aos-delay="650">
+                    <i class="bi bi-person-check fs-1 text-danger"></i>
+                    <h5 class="my-3">Customer Satisfaction</h5>
+                    <p class="text-secondary">A guiding principle in all our work</p>
+                </div>
+                <div class="d-flex align-items-center flex-column px-3 py-5  my-3 shadow-sm rounded" data-aos="fade-up"
+                    data-aos-duration="1000" data-aos-delay="1050">
+                    <i class="bi bi-stars fs-1 text-danger"></i>
+                    <h5 class="my-3">Innovation</h5>
+                    <p class="text-secondary">A guiding principle in all our work</p>
+                </div>
+            </div>
+            <center>
+                <a class="btn btn-primary px-5 my-3 ls-2" href="">Explore</a>
+            </center>
+
         </section>
 
         <!-- ======= MEDIA Section ======= -->
         <section id="media" class="">
             <div class="section-title container">
-                <h2>Our Events & Moments</h2>
+                <h2 class="mb-5">Our Events & Moments</h2>
                 <p class="text-center fs-3">Lorem ipsum dolor sit amet</p>
             </div>
             <!-- FILTERS -->
@@ -216,36 +298,40 @@
             <section class="d-flex justify-content-evenly align-items-center flex-wrap container">
 
                 <div v-for="cl in currentList" :key="cl">
-                    <card width="300" :url="cl.url" imgAlt="Image" :title="cl.title" :info="cl.info" :id="cl.id">
+                    <card width="300" :url="cl.url" :imgAlt="cl.title" :title="cl.title" :info="cl.description"
+                        :id="cl.id">
                     </card>
                 </div>
             </section>
         </section>
 
-
         <!-- ======= TEAM Section ======= -->
         <section id="team">
 
             <div class="section-title container">
-                <h2 class="lh-lg">Driven by the power of youth, our company is managed by a highly skilled group of
+                <h2 class="lh-lg mb-5">Driven by the power of youth, our company is managed by a highly skilled group of
                     young entrepreneurs who aim to step on the global stage of the industry</h2>
                 <p class="text-center fs-3">Our Team</p>
             </div>
             <!-- team box -->
-            <div class="container d-flex justify-content-evenly align-items-center flex-wrap">
-                <team url="https://picsum.photos/4000" name="Mahmoud Mashoun" position="CEO"></team>
-                <team url="https://picsum.photos/4000" name="Mahmoud Mashoun" position="CEO"></team>
-                <team url="https://picsum.photos/4000" name="Mahmoud Mashoun" position="CEO"></team>
-                <team url="https://picsum.photos/4000" name="Mahmoud Mashoun" position="CEO"></team>
-            </div>
-        </section>
 
+            <div class="swiper-cube mx-auto" style="width: 250px;">
+                <div class="swiper-wrapper">
+                    <div v-for="t in profile.team" class="swiper-slide"><img :src="t.url" alt=""
+                            class="img-fluid rounded"></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </section>
 
         <!-- ======= FAQ Section ======= -->
         <section id="faq">
 
             <div class="section-title container">
-                <h2 class="lh-lg">We’re here to answer any question you might have. If the questions below are not what
+                <h2 class="lh-lg mb-5">We’re here to answer any question you might have. If the questions below are not
+                    what
                     you’re looking for, scroll down and send us an email.</h2>
                 <p class="text-center fs-3">F A Q</p>
             </div>
@@ -265,9 +351,9 @@
 
         <!-- ======= CONTACT Section ======= -->
         <section id="contact" class="contact section-bg">
-            <div class="container" data-aos="fade-up">
+            <div class="container">
 
-                <div class="section-title container">
+                <div class="section-title container" data-aos="fade-up" data-aos-duration="1000">
                     <h2 class="lh-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, sit.</h2>
                     <p class="text-center fs-3 mt-3">Contact Us</p>
                 </div>
@@ -277,25 +363,25 @@
                     <div class="col-lg-6">
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="info-box rounded">
                                     <i class="bi bi-map text-primary fs-4"></i>
                                     <h3>Our Address</h3>
-                                    <p>A108 Adam Street, New York, NY 535022</p>
+                                    <p>{{profile.address1}} <br> {{profile.address2}} </p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="info-box mt-4 rounded">
                                     <i class="bi bi-envelope text-primary fs-4"></i>
                                     <h3>Email Us</h3>
-                                    <p>info@example.com<br>contact@example.com</p>
+                                    <p> {{profile.email1}} <br> {{profile.email2}} </p>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="info-box mt-4 rounded">
+                                <div class="info-box mt-4 rounded" data-aos="fade-up" data-aos-duration="1000">
                                     <i class="bi bi-phone text-primary fs-4"></i>
                                     <h3>Call Us</h3>
-                                    <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                                    <p> {{profile.number1}} <br> {{profile.number2}} </p>
                                 </div>
                             </div>
                         </div>
@@ -303,7 +389,7 @@
                     </div>
 
                     <div class="col-lg-6 rounded">
-                        <form class="php-email-form rounded">
+                        <form class="php-email-form rounded" data-aos="fade-up" data-aos-duration="1000">
                             <div class="row">
                                 <div class="col-md-6 form-group rounded">
                                     <input type="text" name="name" class="form-control" id="name"
@@ -319,14 +405,14 @@
                                     placeholder="Subject" required v-model="subject">
                             </div>
                             <div class="form-group mt-3 rounded">
-                                <textarea class="form-control" name="message" rows="5" placeholder="Message"
-                                    required v-model="message"></textarea>
+                                <textarea class="form-control" name="message" rows="5" placeholder="Message" required
+                                    v-model="message"></textarea>
                             </div>
 
                             <div class="text-center rounded">
 
                                 <a class="send-msg btn btn-primary mt-3"
-                                    :href="`mailto:${profile.email}?subject=${encode(subject)}&body=${encode(draftMessage)}`">Send
+                                    :href="`mailto:${profile.email}?subject=${encode(subject)}&body=${encode(''+username+' | '+useremail+'\n\n\n'+message)}`">Send
                                     Message</a>
 
                             </div>
@@ -347,24 +433,15 @@
                 <div class="row">
 
                     <div class="col-lg-4 col-md-6">
-                        <div class="footer-info shadow">
+                        <div class="footer-info shadow-sm">
                             <h3>{{company}}</h3>
-                            <p class="pb-3"><em>Qui repudiandae et eum dolores alias sed ea. Qui suscipit veniam
-                                    excepturi quod.</em>
+                            <p class="pb-3"><em> {{profile.bio}} </em>
                             </p>
-                            <p>
-                                A108 Adam Street <br>
-                                NY 535022, USA<br><br>
-                                <strong>Phone:</strong> +1 5589 55488 55<br>
-                                <strong>Email:</strong> info@example.com<br>
+                            <p> {{profile.address1}} <br> {{profile.address2}} <br><br>
+                                <strong>Phone:</strong> {{profile.number1}} <br>
+                                <strong>Email:</strong> {{profile.email1}} <br>
                             </p>
-                            <div class="social-links mt-3">
-                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                                <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                            </div>
+                            <a href="#" class="btn btn-outline-primary px-5">Get Started</a>
                         </div>
                     </div>
 
@@ -376,7 +453,7 @@
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
                                     href="#">About</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
-                                    href="#">Developers</a></li>
+                                    href="#">Careers</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
                                     href="#">Terms and Conditions</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
@@ -387,25 +464,37 @@
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4 class="text-dark fs-5">Check Also</h4>
                         <ul>
-                            <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a href="#">F
-                                    A Q</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
-                                    href="#">Events</a></li>
+                                    href="#faq">F A Q</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
-                                    href="#">Media</a></li>
+                                    href="#media">Events</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
-                                    href="#">Partners & Clients</a></li>
+                                    href="#media">Media</a></li>
                             <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
-                                    href="#">Testimonials</a></li>
+                                    href="#clients">Partners & Clients</a></li>
+                            <li class="text-secondary fs-6"><i class="bi bi-chevron-right fs-6 me-1"></i> <a
+                                    href="#about">Learn More</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-4 col-md-6 footer-newsletter">
                         <h4 class="text-dark fs-5">Our Newsletter</h4>
                         <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                        <form action="" method="post">
-                            <input type="email" name="email"><input type="submit" value="Subscribe" class="">
-                        </form>
+
+                        <div class="input-group mb-3">
+                            <input v-model="newsletter" type="text" class="form-control py-2"
+                                placeholder="Enter your email">
+                            <button class="btn btn-danger" type="button" id="button-addon2"
+                                @click="subscribe">Subscribe</button>
+                        </div>
+
+                        <div class="mt-4 d-flex justify-content-evenly ">
+                            <a data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000" href="#" class="twitter"><i class="bi bi-twitter text-secondary fs-4"></i></a>
+                            <a data-aos="fade-up" data-aos-delay="550" data-aos-duration="1000"  href="#" class="facebook"><i class="bi bi-facebook text-secondary fs-4"></i></a>
+                            <a data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000"  href="#" class="instagram"><i class="bi bi-instagram text-secondary fs-4"></i></a>
+                            <a data-aos="fade-up" data-aos-delay="1550" data-aos-duration="1000"  href="#" class="google-plus"><i class="bi bi-skype text-secondary fs-4"></i></a>
+                            <a data-aos="fade-up" data-aos-delay="2000" data-aos-duration="1000"  href="#" class="linkedin"><i class="bi bi-linkedin text-secondary fs-4"></i></a>
+                        </div>
 
                     </div>
 
@@ -420,8 +509,6 @@
 
     </footer>
 
-    <div id="preloader"></div>
-
     <script src="assets/js/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
@@ -430,6 +517,11 @@
     <script src="assets/swiper/swiper-bundle.min.js"></script>
 
     <script src="assets/js/main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init()
+    </script>
+
 </body>
 
 </html>

@@ -1,77 +1,36 @@
 var app = Vue.createApp({
     data() {
         return {
-            company: 'AMIT',
+            api: 'https://script.google.com/macros/s/AKfycbzRJ5j189gQopv4klxUQoXKVdanuhwKd14bItVIsJDn9xjANYy7RNs7z6wW0dtguEK6/exec',
+            tabs:'',
+            sub:'',
+            newsletter:'',
+
+            company: 'Amit',
             // send a message form
-            message:'',
-            subject:'',
-            username:'',
-            useremail:'',
-            draftMessage:`${this.message} <br> <hr> <br> <h4>USER : ${this.username} | EMAIL : ${this.useremail} </h4>`,
-
-
-            profile: {
-                heading: 'Welcome to [BRAND-NAME]',
-                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet quod quidem, ipsa ratione nostrum nemo excepturi harum earum. Quia illo ab exercitationem sed beatae non perspiciatis, quidem deserunt alias adipisci!',
-                // ABOUT 
-                about1: '',
-                about2: '',
-                check1: '',
-                check2: '',
-                check3: '',
-                learnMoreBtn: '',
-                c1: '',
-                c2: '',
-                c3: '',
-                // TABS
-                tabs: ['EVENTS', 'MOMENTS', 'FESTIVAL'],
-                // SERVICES
-                services: [
-                    { id: '', index: '', title: '', info: '', url: '' },
-                ],
-                // MEDIA
-                media: {
-                    EVENTS: [
-                        { id: 'EVENT-1', index: '1', title: 'EVENT 1', info: 'EVENT INFO 1', url: 'https://picsum.photos/2880/1620' },
-                        { id: 'EVENT-2', index: '2', title: 'EVENT 2', info: 'EVENT INFO 2', url: 'https://picsum.photos/2880/1620' },
-                        { id: 'EVENT-3', index: '3', title: 'EVENT 3', info: 'EVENT INFO 3', url: 'https://picsum.photos/2880/1620' },
-                        { id: 'EVENT-4', index: '4', title: 'EVENT 4', info: 'EVENT INFO 4', url: 'https://picsum.photos/2880/1620' },
-                    ],
-                    MOMENTS: [
-                        { id: 'MOMENTS-1', index: '1', title: 'MOMENT 1', info: 'MOMENTS INFO 1', url: 'https://picsum.photos/2880/1620' },
-                        { id: 'MOMENTS-2', index: '2', title: 'MOMENT 2', info: 'MOMENTS INFO 2', url: 'https://picsum.photos/2880/1620' },
-                    ],
-                    FESTIVAL: [
-                        { id: 'FEST-1', index: '1', title: 'FESTIVAL 1', info: 'FESTIVAL INFO 1', url: 'https://picsum.photos/2880/1620' },
-                    ],
-                },
-                // TEAM
-                team: [
-                    { id: '', index: '', title: '', info: '', url: '' },
-                ],
-                // FAQ
-                faq: [
-                    { id: 'faq-1', index: '1', title: 'Question 1', info: 'Answer 1' },
-                    { id: 'faq-2', index: '2', title: 'Question 2', info: 'Answer 2' },
-                    { id: 'faq-3', index: '3', title: 'Question 3', info: 'Answer 3' },
-                    { id: 'faq-4', index: '4', title: 'Question 4', info: 'Answer 4' },
-                ],
-                // CONTACT
-                email: 'info@lebancode.com',
-                number: '',
-                address: '',
-                twitter: '',
-                instagram: '',
-                facebook: '',
-                linkedin: '',
-                whatsapp: ''
-
-            },
+            message: '',
+            subject: '',
+            username: '',
+            useremail: '',
+            profile: [],
             currentTab: '',
             currentList: '',
+            spinner: true,
         }
     },
     methods: {
+        subscribe(){
+            fetch(this.sub, {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+                body: this.newsletter
+            }).then(res => res.json()).then(res => {
+                alert('Thank You !')
+                this.newsletter = ''
+            })
+        },
 
         setCurrentTab(tab) {
             this.currentTab = tab
@@ -79,7 +38,7 @@ var app = Vue.createApp({
             // console.log(currentTab)
             // console.log(this.currentList)
         },
-        
+
         encode(x) {
             return encodeURIComponent(x)
         },
@@ -97,7 +56,16 @@ var app = Vue.createApp({
     },
 
     mounted() {
-        this.getAllMedia()
+        this.spinner = true
+
+        fetch(this.api).then(res => res.json()).then(res => {
+            console.log(res)
+            this.profile = res
+            this.spinner = false
+            this.getAllMedia()
+            this.sub = this.api + '?subscribe=1'
+            
+        })
 
         // console.log(this.currentList)
     }
@@ -111,7 +79,7 @@ app.component('card', {
         <!-- P O T  -->
         <div class="card-pot my-3" :style="'width: '+width+'px;'">
 
-            <div class="shadow bg-light rounded scale-in-center">
+            <div class="shadow-sm bg-light rounded scale-in-center">
                 <!-- customized ratio control -->
                 <img :src="url" :alt="imgAlt" class="img-fluid rounded-top">
                 <div class="card-body d-flex justify-content-between align-items-center p-3">
@@ -161,8 +129,8 @@ app.component('team', {
 
 app.component('faq', {
     template:
-    /*html*/
-    `
+        /*html*/
+        `
 
     <div class="faq container d-flex align-items-center p-3 rounded shadow-sm bg-light my-3 point" data-bs-toggle="modal" :data-bs-target="'#'+index">
         <i class="bi bi-chat-square-text fs-4 me-3 text-primary"></i>
@@ -193,24 +161,23 @@ app.component('faq', {
     props: ['question', 'index']
 })
 
-app.component('swiper',{
+app.component('swiper', {
     template:
-    /*html*/
-    `
+        /*html*/
+        `
     <!-- Swiper -->
     <div class="swiper">
         <div class="swiper-wrapper">
             <div v-for="l in list" class="swiper-slide " :style="'width:'+w+'; height:'+h+';'">
-                <img :src="l" class="img-fluid rounded">
+                <img :src="l.url" class="img-fluid rounded" alt="l.name">
             </div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination spot-white"></div>
     </div>
     `,
-    props:['list','w','h']
+    props: ['list', 'w', 'h']
 })
-
 
 
 
