@@ -1,12 +1,12 @@
 var app = Vue.createApp({
     data() {
         return {
-            api: 'https://script.google.com/macros/s/AKfycbzRJ5j189gQopv4klxUQoXKVdanuhwKd14bItVIsJDn9xjANYy7RNs7z6wW0dtguEK6/exec',
-            tabs:'',
-            sub:'',
-            newsletter:'',
+            api: 'https://script.google.com/macros/s/AKfycbz0XPRfGGN0WJM1-fXIu4-RgfmaxB_02IhxEQY1odzBARbrf0scwAZXCUijx335Du4V3w/exec',
+            tabs: '',
+            sub: '',
+            newsletter: '',
 
-            company: 'Amit',
+            company: 'ICD',
             // send a message form
             message: '',
             subject: '',
@@ -16,10 +16,62 @@ var app = Vue.createApp({
             currentTab: '',
             currentList: '',
             spinner: true,
+            lang: 'arb'
         }
     },
     methods: {
-        subscribe(){
+        initTarjama(res) {
+
+            this.profile.heading = this.tarjem(res.heading)
+            this.profile.bio = this.tarjem(res.bio)
+            this.profile.about1 = this.tarjem(res.about1)
+            this.profile.about2 = this.tarjem(res.about2)
+            this.profile.mission = this.tarjem(res.mission)
+            this.profile.vision = this.tarjem(res.vision)
+
+            // SERVICES
+            this.profile.services.forEach(e => {
+                // console.log(e)
+                e.title = this.tarjem(e.title)
+                e.description = this.tarjem(e.description)
+            });
+            // FAQ
+            this.profile.faq.forEach(e => {
+                // console.log(e)
+                e.question = this.tarjem(e.question)
+                e.answer = this.tarjem(e.answer)
+            });
+            // Media
+            this.profile.tabs.forEach(tab => {
+                this.profile.media[tab].forEach(e => {
+
+                    e.title = this.tarjem(e.title)
+                    e.description = this.tarjem(e.description)
+                })
+            });
+
+        },
+        toggleLanguage(lang) {
+            this.spinner = true
+            this.lang = lang
+
+            fetch(this.api).then(res => res.json()).then(res => {
+                console.log(res)
+                this.profile = res
+                this.spinner = false
+                this.getAllMedia()
+                this.sub = this.api + '?subscribe=1'
+                this.initTarjama(res)
+            })
+        },
+        tarjem(text) {
+            // console.log(text.indexOf(`${this.lang}::`))
+            text = text.slice(text.indexOf(`${this.lang}::`), text.length)
+            // console.log(text.indexOf(';;'))
+            // console.log(text.slice(0 + 5, text.indexOf(';;')))
+            return text.slice(0 + 5, text.indexOf(';;'))
+        },
+        subscribe() {
             fetch(this.sub, {
                 method: 'POST', // or 'PUT'
                 headers: {
@@ -61,10 +113,14 @@ var app = Vue.createApp({
         fetch(this.api).then(res => res.json()).then(res => {
             console.log(res)
             this.profile = res
+            this.xprofile = res
+            // this.initTranslation()
             this.spinner = false
             this.getAllMedia()
             this.sub = this.api + '?subscribe=1'
-            
+            this.initTarjama(res)
+
+
         })
 
         // console.log(this.currentList)
@@ -83,7 +139,7 @@ app.component('card', {
                 <!-- customized ratio control -->
                 <img :src="url" :alt="imgAlt" class="img-fluid rounded-top">
                 <div class="card-body d-flex justify-content-between align-items-center p-3">
-                    <h5 class="lh-base ls-2">{{title}}</h5>
+                    <h5 class="lh-base ">{{title}}</h5>
                     <i class="bi bi-three-dots-vertical fs-4 point" data-bs-toggle="modal"
                         :data-bs-target="'#'+id" style="color:#8d99ae;"></i>
                 </div>
